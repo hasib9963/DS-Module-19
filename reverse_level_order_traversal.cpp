@@ -40,14 +40,50 @@ vector<int> reverseLevelOrder(TreeNode<int> *root)
 }
 
 // Function to create a predefined binary tree
-TreeNode<int> *createPredefinedTree()
+// TreeNode<int> *createPredefinedTree()
+// {
+//     TreeNode<int> *root = new TreeNode<int>(1);
+//     root->left = new TreeNode<int>(2);
+//     root->right = new TreeNode<int>(3);
+//     root->left->left = new TreeNode<int>(4);
+//     root->left->right = new TreeNode<int>(5);
+//     root->right->right = new TreeNode<int>(6);
+//     return root;
+// }
+
+// Function to create a binary tree from user input
+TreeNode<int> *createBinaryTree()
 {
-    TreeNode<int> *root = new TreeNode<int>(1);
-    root->left = new TreeNode<int>(2);
-    root->right = new TreeNode<int>(3);
-    root->left->left = new TreeNode<int>(4);
-    root->left->right = new TreeNode<int>(5);
-    root->right->right = new TreeNode<int>(6);
+    int data;
+    cout << "Enter the value for the root node: ";
+    cin >> data;
+
+    TreeNode<int> *root = new TreeNode<int>(data);
+    queue<TreeNode<int> *> q;
+    q.push(root);
+
+    while (!q.empty())
+    {
+        TreeNode<int> *node = q.front();
+        q.pop();
+
+        cout << "Enter left child of " << node->val << " (-1 for no left child): ";
+        cin >> data;
+        if (data != -1)
+        {
+            node->left = new TreeNode<int>(data);
+            q.push(node->left);
+        }
+
+        cout << "Enter right child of " << node->val << " (-1 for no right child): ";
+        cin >> data;
+        if (data != -1)
+        {
+            node->right = new TreeNode<int>(data);
+            q.push(node->right);
+        }
+    }
+
     return root;
 }
 
@@ -65,7 +101,11 @@ void deleteTree(TreeNode<int> *root)
 int main()
 {
     // Create a predefined binary tree
-    TreeNode<int> *root = createPredefinedTree();
+    // TreeNode<int> *root = createPredefinedTree();
+
+    // Create a binary tree by user
+    cout << "Create your binary tree:" << endl;
+    TreeNode<int> *root = createBinaryTree();
 
     // Perform reverse level order traversal
     vector<int> result = reverseLevelOrder(root);
