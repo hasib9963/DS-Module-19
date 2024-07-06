@@ -48,25 +48,66 @@ vector<int> getLeftView(TreeNode<int> *root)
 }
 
 // Function to create a predefined binary tree
-TreeNode<int> *createPredefinedBinaryTree()
-{
-    // Creating nodes
-    TreeNode<int> *root = new TreeNode<int>(1);
-    root->left = new TreeNode<int>(2);
-    root->right = new TreeNode<int>(3);
-    root->left->left = new TreeNode<int>(4);
-    root->left->right = new TreeNode<int>(5);
-    root->right->right = new TreeNode<int>(6);
-    root->left->left->left = new TreeNode<int>(7);
+// TreeNode<int> *createPredefinedBinaryTree()
+// {
+//     // Creating nodes
+//     TreeNode<int> *root = new TreeNode<int>(1);
+//     root->left = new TreeNode<int>(2);
+//     root->right = new TreeNode<int>(3);
+//     root->left->left = new TreeNode<int>(4);
+//     root->left->right = new TreeNode<int>(5);
+//     root->right->right = new TreeNode<int>(6);
+//     root->left->left->left = new TreeNode<int>(7);
 
-    // The tree looks like this:
-    //         1
-    //       /   \
-    //      2     3
-    //     / \     \
-    //    4   5     6
-    //   /
-    //  7
+//     // The tree looks like this:
+//     //         1
+//     //       /   \
+//     //      2     3
+//     //     / \     \
+//     //    4   5     6
+//     //   /
+//     //  7
+
+//     return root;
+// }
+
+// Function to create a binary tree from user input
+TreeNode<int>* createBinaryTree() {
+    int rootData;
+    cout << "Enter root data: ";
+    cin >> rootData;
+
+    if (rootData == -1) {
+        return NULL;
+    }
+
+    TreeNode<int>* root = new TreeNode<int>(rootData);
+    queue<TreeNode<int>*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        TreeNode<int>* currentNode = q.front();
+        q.pop();
+
+        int leftChild, rightChild;
+        cout << "Enter left child of " << currentNode->data << " (-1 for NULL): ";
+        cin >> leftChild;
+
+        if (leftChild != -1) {
+            TreeNode<int>* leftNode = new TreeNode<int>(leftChild);
+            currentNode->left = leftNode;
+            q.push(leftNode);
+        }
+
+        cout << "Enter right child of " << currentNode->data << " (-1 for NULL): ";
+        cin >> rightChild;
+
+        if (rightChild != -1) {
+            TreeNode<int>* rightNode = new TreeNode<int>(rightChild);
+            currentNode->right = rightNode;
+            q.push(rightNode);
+        }
+    }
 
     return root;
 }
@@ -87,7 +128,8 @@ int main()
     // Creating nodes
     // TreeNode<int>* root = new TreeNode<int>(1);
     // call the TreeNode function
-    TreeNode<int> *root = createPredefinedBinaryTree();
+    // TreeNode<int> *root = createPredefinedBinaryTree();
+    TreeNode<int>* root = createBinaryTree();
     // root->left = new TreeNode<int>(2);
     // root->right = new TreeNode<int>(3);
     // root->left->left = new TreeNode<int>(4);
