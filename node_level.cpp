@@ -48,15 +48,47 @@ int nodeLevel(TreeNode<int> *root, int searchedValue)
 }
 
 // Function to create a predefined binary tree
-TreeNode<int> *createPredefinedBinaryTree()
-{
-    TreeNode<int> *root = new TreeNode<int>(1);
-    root->left = new TreeNode<int>(2);
-    root->right = new TreeNode<int>(3);
-    root->left->left = new TreeNode<int>(4);
-    root->left->right = new TreeNode<int>(5);
-    root->right->right = new TreeNode<int>(6);
-    root->left->left->left = new TreeNode<int>(7);
+// TreeNode<int> *createPredefinedBinaryTree()
+// {
+//     TreeNode<int> *root = new TreeNode<int>(1);
+//     root->left = new TreeNode<int>(2);
+//     root->right = new TreeNode<int>(3);
+//     root->left->left = new TreeNode<int>(4);
+//     root->left->right = new TreeNode<int>(5);
+//     root->right->right = new TreeNode<int>(6);
+//     root->left->left->left = new TreeNode<int>(7);
+//     return root;
+// }
+
+// Function to create a binary tree from user input
+TreeNode<int>* createBinaryTree() {
+    int data;
+    cout << "Enter the value for the root node: ";
+    cin >> data;
+
+    TreeNode<int>* root = new TreeNode<int>(data);
+    queue<TreeNode<int>*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        TreeNode<int>* node = q.front();
+        q.pop();
+
+        cout << "Enter left child of " << node->val << " (-1 for no left child): ";
+        cin >> data;
+        if (data != -1) {
+            node->left = new TreeNode<int>(data);
+            q.push(node->left);
+        }
+
+        cout << "Enter right child of " << node->val << " (-1 for no right child): ";
+        cin >> data;
+        if (data != -1) {
+            node->right = new TreeNode<int>(data);
+            q.push(node->right);
+        }
+    }
+
     return root;
 }
 
@@ -73,7 +105,10 @@ void deleteTree(TreeNode<int> *root)
 // Main function to test the nodeLevel function
 int main()
 {
-    TreeNode<int> *root = createPredefinedBinaryTree();
+    // TreeNode<int> *root = createPredefinedBinaryTree();
+    
+    cout << "Create your binary tree:" << endl;
+    TreeNode<int>* root = createBinaryTree();
 
     int searchedValue;
     cout << "Enter the value to search for: ";
